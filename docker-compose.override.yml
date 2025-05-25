@@ -7,6 +7,9 @@ x-base-config: &base-config
   environment:  # Completely replace environment section
     - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+services:
+  crawl4ai:
+    container_name: crawl4ai
 
 networks:
   homelabnetwork:
