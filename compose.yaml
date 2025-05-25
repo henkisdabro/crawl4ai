@@ -9,9 +9,9 @@ services:
         INSTALL_TYPE: ${INSTALL_TYPE:-default}
         ENABLE_GPU: ${ENABLE_GPU:-false}
     networks:
-    - homelabnetwork
+      - homelabnetwork
     ports:
-    - "11235:11235"  # Gunicorn port
+      - "11235:11235"  # Gunicorn port
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
