@@ -1,9 +1,13 @@
 version: '3.8'
 
-services:
-  crawl4ai:
-    env_file: !reset []  # Remove env_file
-    environment:  # Completely replace environment section
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
-      - MY_CUSTOM_VAR=${MY_CUSTOM_VAR:-some_default}
+x-base-config: &base-config
+  networks:
+    - homelabnetwork
+  env_file: !reset []  # Remove env_file
+  environment:  # Completely replace environment section
+    - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+
+networks:
+  homelabnetwork:
+    external: true
