@@ -1,0 +1,42 @@
+services:
+  crawl4ai:
+    image: unclecode/crawl4ai:latest
+    container_name: crawl4ai
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        INSTALL_TYPE: ${INSTALL_TYPE:-default}
+        ENABLE_GPU: ${ENABLE_GPU:-false}
+    networks:
+    - homelabnetwork
+    ports:
+    - "11235:11235"  # Gunicorn port
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - TOGETHER_API_KEY=${TOGETHER_API_KEY:-}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+      - GEMINI_API_TOKEN=${GEMINI_API_TOKEN:-}
+    volumes:
+      - /dev/shm:/dev/shm  # Chromium performance
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11235/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    user: "appuser"
+
+networks:
+  homelabnetwork:
+    external: true
