@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   crawl4ai:
-    env_file: []  # Remove env_file
+    env_file: !reset []  # Remove env_file
     environment:  # Completely replace environment section
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
