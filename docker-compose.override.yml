@@ -5,11 +5,14 @@ x-base-config: &base-config
     - homelabnetwork
   env_file: !reset []  # Remove env_file
   environment:  # Completely replace environment section
+    - OVERRIDE_TEST_SHARED=SUCCESS_OVERRIDE_IS_WORKING
     - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
 services:
   crawl4ai:
     container_name: crawl4ai
+    environment:
+      - OVERRIDE_TEST_SERVICE=SUCCESS_OVERRIDE_IS_WORKING
 
 networks:
   homelabnetwork:
